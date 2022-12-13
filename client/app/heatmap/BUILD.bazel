@@ -1,0 +1,64 @@
+load("@npm_bazel_typescript//:defs.bzl", "ts_library")
+load("@npm_angular_bazel//:index.bzl", "ng_module")
+
+package(default_visibility = ["//visibility:public"])
+
+licenses(["notice"])  # Apache License 2.0
+
+ng_module(
+    name = "heatmap",
+    srcs = [
+        "heatmap.ts",
+        "heatmap_module.ts",
+        "index.ts",
+        "intervals_layer.ts",
+        "preview_layer.ts",
+        "timeline_zoom_brush.ts",
+        "x_axis_layer.ts",
+    ],
+    assets = [
+        "heatmap.css",
+        "heatmap.ng.html",
+    ],
+    deps = [
+        "//client/app/heatmap/cpu_axes",
+        "//client/app/heatmap/metrics_overlay",
+        "//client/app/models",
+        "//client/app/models:service_models",
+        "//client/app/services",
+        "//client/app/util",
+        "@npm//@angular/common",
+        "@npm//@angular/core",
+        "@npm//@angular/forms",
+        "@npm//@angular/material",
+        "@npm//@angular/platform-browser",
+        "@npm//@types/node",
+        "@npm//d3",
+        "@npm//rxjs",
+    ],
+)
+
+ts_library(
+    name = "heatmap_tests",
+    testonly = True,
+    srcs = [
+        "heatmap_test.ts",
+        "preview_layer_test.ts",
+        "timeline_zoom_brush_test.ts",
+    ],
+    deps = [
+        ":heatmap",
+        "//client/app/models",
+        "//client/app/models:service_models",
+        "//client/app/services",
+        "//client/app/services:services_tests",
+        "//client/app/util",
+        "@npm//@angular/core",
+        "@npm//@angular/material",
+        "@npm//@angular/platform-browser",
+        "@npm//@angular/platform-browser-dynamic",
+        "@npm//@types/jasmine",
+        "@npm//d3",
+        "@npm//rxjs",
+    ],
+)

@@ -1,0 +1,52 @@
+load("@npm_bazel_typescript//:defs.bzl", "ts_library")
+load("@npm_angular_bazel//:index.bzl", "ng_module")
+
+package(default_visibility = ["//visibility:public"])
+
+licenses(["notice"])  # Apache License 2.0
+
+ng_module(
+    name = "settings_menu",
+    srcs = [
+        "settings_menu.ts",
+        "settings_menu_module.ts",
+    ],
+    assets = [
+        "settings_menu.ng.html",
+        "settings_menu.css",
+    ],
+    strict_templates = False,
+    deps = [
+        "//client/app/models",
+        "//client/app/services",
+        "//client/app/util",
+        "@npm//@angular/cdk",
+        "@npm//@angular/common",
+        "@npm//@angular/core",
+        "@npm//@angular/forms",
+        "@npm//@angular/material",
+        "@npm//@angular/platform-browser",
+        "@npm//@types/node",
+        "@npm//hammerjs",
+        "@npm//rxjs",
+    ],
+)
+
+ts_library(
+    name = "settings_menu_tests",
+    testonly = True,
+    srcs = ["settings_menu_test.ts"],
+    deps = [
+        ":settings_menu",
+        "//client/app/models",
+        "//client/app/util",
+        "@npm//@angular/cdk",
+        "@npm//@angular/core",
+        "@npm//@angular/forms",
+        "@npm//@angular/material",
+        "@npm//@angular/platform-browser-dynamic",
+        "@npm//@types/jasmine",
+        "@npm//d3",
+        "@npm//rxjs",
+    ],
+)

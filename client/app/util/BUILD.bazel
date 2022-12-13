@@ -1,0 +1,48 @@
+load("@npm_angular_bazel//:index.bzl", "ng_module")
+load("@npm_bazel_typescript//:defs.bzl", "ts_library")
+
+package(default_visibility = ["//visibility:public"])
+
+licenses(["notice"])  # Apache License 2.0
+
+ng_module(
+    name = "util",
+    srcs = [
+        "clipboard.ts",
+        "complex_system_topology.ts",
+        "duration.ts",
+        "duration_validator.ts",
+        "error_snackbar.ts",
+        "hash_compressor.ts",
+        "hash_keys.ts",
+        "helpers.ts",
+        "index.ts",
+        "system_topology.ts",
+        "util_module.ts",
+        "viewport.ts",
+    ],
+    deps = [
+        "//client/app/models:collections_filter",
+        "//client/app/models:service_models",
+        "@npm//@angular/cdk",
+        "@npm//@angular/common",
+        "@npm//@angular/core",
+        "@npm//@angular/forms",
+        "@npm//@angular/material",
+        "@npm//pako",
+        "@npm//rxjs",
+    ],
+)
+
+ts_library(
+    name = "util_tests",
+    testonly = True,
+    srcs = [
+        "duration_test.ts",
+        "hash_compressor_test.ts",
+    ],
+    deps = [
+        ":util",
+        "@npm//@types/jasmine",
+    ],
+)

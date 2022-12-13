@@ -1,0 +1,58 @@
+<div #tabGroup style="height: 100%">
+  <mat-tab-group [selectedIndex]="tab.value"
+                 (selectedTabChange)="tab.next($event.index)">
+    <mat-tab label="Threads">
+      <thread-table
+        [preview]="preview"
+        [layers]="layers"
+        [data]="threads"
+        [filter]="filter"
+        [expandedThread]="expandedThread"
+        [expandedFtraceIntervals]="expandedFtraceIntervals"
+        [expandedThreadAntagonists]="expandedThreadAntagonists"
+        [expandedThreadIntervals]="expandedThreadIntervals"
+        [dataPending]="threadsPending"
+        [sort]="threadSort"
+        [tab]="tab">
+      </thread-table>
+    </mat-tab>
+    <mat-tab label="Events">
+      <sched-events-table
+        [preview]="preview"
+        [layers]="layers"
+        [data]="eventTypesSubject"
+        [sort]="threadSort"
+        [tab]="tab">
+      </sched-events-table>
+    </mat-tab>
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <mat-icon class="layers-badge-icon"
+                  [matBadge]="layers.value.length"
+                  matBadgeColor="accent"
+                  matTooltip="Layer Settings">
+          layers
+        </mat-icon>
+      </ng-template>
+      <mat-form-field class="cpu-filter-form">
+        <input matInput
+               [ngModel]="cpuFilter | async"
+               (ngModelChange)="cpuFilter.next($event.trim().toLowerCase())"
+               placeholder="CPU Filter">
+      </mat-form-field>
+      <button (click)="cpuFilter.next('')" mat-icon-button aria-label="Clear">
+        <mat-icon *ngIf="cpuFilter.value.length" color="primary">
+          highlight_off
+        </mat-icon>
+      </button>
+      <settings-menu
+        [layers]="layers"
+        [parameters]="parameters"
+        [viewport]="viewport"
+        [showSleeping]="showSleeping"
+        [showMigrations]="showMigrations"
+        [maxIntervalCount]="maxIntervalCount">
+      </settings-menu>
+    </mat-tab>
+  </mat-tab-group>
+</div>

@@ -1,0 +1,48 @@
+load("@npm_bazel_typescript//:defs.bzl", "ts_library")
+load("@npm_angular_bazel//:index.bzl", "ng_module")
+
+package(default_visibility = ["//visibility:public"])
+
+licenses(["notice"])  # Apache License 2.0
+
+ng_module(
+    name = "app_root",
+    srcs = [
+        "app_root.ts",
+        "app_root_module.ts",
+        "app_routing_module.ts",
+        "dialog_shortcuts.ts",
+    ],
+    assets = [
+        "app.css",
+        "app.ng.html",
+    ],
+    deps = [
+        "//client/app/collections",
+        "//client/app/dashboard",
+        "//client/app/services",
+        "//client/app/util",
+        "//client/environments",
+        "@npm//@angular/core",
+        "@npm//@angular/forms",
+        "@npm//@angular/material",
+        "@npm//@angular/router",
+        "@npm//rxjs",
+    ],
+)
+
+ts_library(
+    name = "app_tests",
+    testonly = True,
+    srcs = ["app_root_test.ts"],
+    deps = [
+        ":app_root",
+        "//client/app/services",
+        "//client/app/services:services_tests",
+        "//client/app/util",
+        "@npm//@angular/core",
+        "@npm//@angular/material",
+        "@npm//@angular/router",
+        "@npm//@types/jasmine",
+    ],
+)
